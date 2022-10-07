@@ -40,7 +40,7 @@ jobs:
           context: .
           file: package/docker/Dockerfile
           push: true
-          tags: IPLit/otp-service:${{env.ARTIFACT_VERSION}},IPLit/otp-service
+          tags: ${{ secrets.DOCKER_USERNAME }}/otp-service:${{env.ARTIFACT_VERSION}},${{ secrets.DOCKER_USERNAME }}/otp-service
       - name: Helm - Update Version and Image Tag
         run: |
           yq --inplace '.image.tag = "${{ env.ARTIFACT_VERSION }}"' $HELM_CHART_PATH/values.yaml
