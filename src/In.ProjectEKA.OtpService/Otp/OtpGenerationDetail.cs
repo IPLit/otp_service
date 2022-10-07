@@ -10,8 +10,8 @@ namespace In.ProjectEKA.OtpService.Otp
         static OtpGenerationDetail()
         {
             templateIDs = new Dictionary<Action, string>();
-            templateIDs.Add(Action.LINK_PATIENT_CARECONTEXT, "1007160803219758234");
-            templateIDs.Add(Action.FORGOT_PIN, "1007160803221956026");
+            templateIDs.Add(Action.LINK_PATIENT_CARECONTEXT, "1207161856899774071");
+            templateIDs.Add(Action.FORGOT_PIN, "1207161856899774071");
         }
         public string SystemName { get; set; }
         public Action Action { get; set; }

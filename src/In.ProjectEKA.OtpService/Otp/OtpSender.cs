@@ -46,8 +46,9 @@ namespace In.ProjectEKA.OtpService.Otp
                                        $" for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}",
                 Action.REGISTRATION => $"The OTP is {value} to verify the mobile number, This one time password is valid " +
                                        $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}",
-                Action.LINK_PATIENT_CARECONTEXT => $"The OTP is {value} to link your care context, This one time password is valid " +
-                              $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}\n\n{smsServiceProperties.SmsSuffix}",
+                /* Action.LINK_PATIENT_CARECONTEXT => $"The OTP is {value} to link your care context, This one time password is valid " +
+                              $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}\n\n{smsServiceProperties.SmsSuffix}", */
+    Action.LINK_PATIENT_CARECONTEXT => $"Your OTP is {value} - Team MiraHospital by IPLit",
                 Action.RECOVER_PASSWORD => $"The OTP is {value} to recover password, This one time password is valid " +
                                                    $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}",
                 Action.FORGOT_PIN => $"The OTP is {value} to set a new consent pin, this one time password is valid " +

@@ -36,8 +36,10 @@ namespace In.ProjectEKA.OtpService.Clients
         public async Task<Response> Send(string phoneNumber, string message, string templateId)
         {
             var phoneNumberWithCountryCode = phoneNumber;
-            if (phoneNumber.Contains('-'))
-                phoneNumberWithCountryCode = phoneNumber.Replace("+", string.Empty).Replace("-", String.Empty);
+            // if (phoneNumber.Contains('-'))
+            phoneNumberWithCountryCode = phoneNumber.Replace("+", string.Empty).Replace("-", String.Empty);
+            if (phoneNumberWithCountryCode.Length == 12)
+                phoneNumberWithCountryCode = phoneNumberWithCountryCode.Substring(2);
 
             try
             {
@@ -45,15 +47,18 @@ namespace In.ProjectEKA.OtpService.Clients
                 uriBuilder.Port = -1;
                 var query = HttpUtility.ParseQueryString(uriBuilder.Query);
                 query["username"] = smsServiceProperties.ClientId;
-                query["pin"] = smsServiceProperties.ClientSecret;
+                query["password"] = smsServiceProperties.ClientSecret;
                 query["message"] = message;
-                query["mnumber"] = phoneNumberWithCountryCode;
-                query["dlt_template_id"] = templateId;
-                query["signature"] = smsServiceProperties.Signature;
-                query["dlt_entity_id"] = smsServiceProperties.EntityId;
+                query["destination"] = phoneNumberWithCountryCode;
+                query["tempid"] = templateId;
+                query["source"] = smsServiceProperties.Signature;
+                query["entityid"] = smsServiceProperties.EntityId;
+                query["type"] = "0";
+                query["dlr"] = "1";
 
                 uriBuilder.Query = query.ToString();
                 
+                Log.Error("smsQuery "+query.ToString());
                 var request = new HttpRequestMessage(HttpMethod.Get, uriBuilder.ToString());
 
                 var response = await client
