@@ -65,7 +65,7 @@ jobs:
 
       - name: Helm - reIndex
         working-directory: helm-charts/
-        run: helm repo index --merge index.yaml --url https://IPLit.github.io/helm-charts/  .
+        run: helm repo index --merge index.yaml --url https://iplit.github.io/helm-charts/  .
 
       - name: Helm - Publish Chart
         working-directory: helm-charts/
@@ -74,4 +74,4 @@ jobs:
           git config user.email ${{ secrets.BAHMNI_EMAIL}}
           git add .
           git commit -m "Release of otp-service-${{ env.ARTIFACT_VERSION }}"
-          git push 'https://${{github.actor}}:${{secrets.BAHMNI_PAT}}@github.com/IPLit/helm-charts.git' gh-pages
+          git push 'https://${{github.actor}}:${{secrets.BAHMNI_PAT}}@github.com/iplit/helm-charts.git' gh-pages
