@@ -29,4 +29,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: IPLit/otp-service:${{env.BAHMNI_VERSION}}-${{github.run_number}},IPLit/otp-service
+          tags: ${{ secrets.DOCKER_USERNAME }}/otp-service:${{env.BAHMNI_VERSION}}-${{github.run_number}},${{ secrets.DOCKER_USERNAME }}/otp-service
