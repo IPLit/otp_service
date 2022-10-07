@@ -44,7 +44,7 @@ namespace In.ProjectEKA.OtpService.Clients
             try
             {
                 var uriBuilder = new UriBuilder(smsServiceProperties.SmsApi);
-                uriBuilder.Port = -1;
+                // uriBuilder.Port = -1;
                 var query = HttpUtility.ParseQueryString(uriBuilder.Query);
                 query["username"] = smsServiceProperties.ClientId;
                 query["password"] = smsServiceProperties.ClientSecret;
@@ -55,10 +55,10 @@ namespace In.ProjectEKA.OtpService.Clients
                 query["entityid"] = smsServiceProperties.EntityId;
                 query["type"] = "0";
                 query["dlr"] = "1";
+				Log.Error("smsQuery: "+query.ToString());
 
                 uriBuilder.Query = query.ToString();
-                
-                Log.Error("smsQuery "+query.ToString());
+
                 var request = new HttpRequestMessage(HttpMethod.Get, uriBuilder.ToString());
 
                 var response = await client
