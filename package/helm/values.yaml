@@ -10,7 +10,7 @@ metadata:
     environment: dev
 
 image:
-  repository: bahmniindiadistro
+  repository: IPLit
   name: otp-service
   tag: latest
 
@@ -19,7 +19,7 @@ service:
   port: 80
 
 config:
-  WHITELISTED_NUMBERS: "+917888463698,7888463698,+919856261879,9856261879,+918825609370,8825609370,+917838473065,7838473065,+919865689295,9865689295,+919940925616,9940925616,+918588057278,8588057278,9452082394,+919452082394,+919790838427,9790838427,+919876543210,9876543210"
+  WHITELISTED_NUMBERS: ""
   CONNECTION_STRING: "Host=bahmni-dev-postgresql;Port=5432;Username=postgres;Password=welcome;Database=otpservice;"
 
 autoscaling:
