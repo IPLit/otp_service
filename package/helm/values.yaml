@@ -10,7 +10,7 @@ metadata:
     environment: dev
 
 image:
-  repository: IPLit
+  repository: infoiplitin
   name: otp-service
   tag: latest
 
