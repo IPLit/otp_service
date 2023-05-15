@@ -16,7 +16,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
             var otpRepository = new Mock<IOtpRepository>();
             var sessionId = TestBuilder.Faker().Random.Hash();
             var expectation = new Response(ResponseType.Success, "");
-            otpRepository.Setup(e => e.Save("666666", sessionId)).ReturnsAsync(expectation);
+            otpRepository.Setup(e => e.Save("123456", sessionId)).ReturnsAsync(expectation);
             var fakeOtpSender = new FakeOtpSender(otpRepository.Object);
 
             var result = await fakeOtpSender.GenerateOtp(new OtpGenerationRequest(
