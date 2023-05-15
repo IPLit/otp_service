@@ -14,7 +14,7 @@ namespace In.ProjectEKA.OtpService.Otp
 
         public async Task<Response> GenerateOtp(OtpGenerationRequest otpGenerationRequest)
         {
-            return await otpRepository.Save("666666", otpGenerationRequest.SessionId);
+            return await otpRepository.Save("123456", otpGenerationRequest.SessionId);
         }
     }
 }
