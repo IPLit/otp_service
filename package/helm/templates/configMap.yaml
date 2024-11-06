@@ -5,3 +5,4 @@ metadata:
 data:
   whitelisted__numbers:  "{{ .Values.config.WHITELISTED_NUMBERS }}"
   ConnectionStrings__DefaultConnection: "{{ .Values.config.CONNECTION_STRING }}"
+  clinic__name:  "{{ .Values.config.CLINIC_NAME }}"

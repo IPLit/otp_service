@@ -21,6 +21,7 @@ service:
 config:
   WHITELISTED_NUMBERS: ""
   CONNECTION_STRING: "Host=bahmni-dev-postgresql;Port=5432;Username=postgres;Password=welcome;Database=otpservice;"
+  CLINIC_NAME: ""
 
 autoscaling:
   enabled: false
