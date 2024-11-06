@@ -25,7 +25,7 @@ namespace In.ProjectEKA.OtpService.Otp
         public async Task<Response> GenerateOtp(OtpGenerationRequest otpGenerationRequest)
         {
             var otp = otpGenerator.GenerateOtp();
-            var generateMessage = GenerateMessage(otpGenerationRequest.GenerationDetail, otp);
+            var generateMessage = GenerateMessage(otpGenerationRequest.GenerationDetail, otp, smsServiceProperties.ClinicName);
             
             var sendOtp = await smsClient.Send(otpGenerationRequest.Communication.Value, generateMessage, otpGenerationRequest.GenerationDetail.GetTemplateID());
             if (sendOtp.ResponseType == ResponseType.Success)
@@ -36,7 +36,7 @@ namespace In.ProjectEKA.OtpService.Otp
             return sendOtp;
         }
 
-        public string GenerateMessage(OtpGenerationDetail generationDetail, string value)
+        public string GenerateMessage(OtpGenerationDetail generationDetail, string value, string clinicName)
         {
             return generationDetail.Action switch
             {
@@ -48,7 +48,7 @@ namespace In.ProjectEKA.OtpService.Otp
                                        $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}",
                 /* Action.LINK_PATIENT_CARECONTEXT => $"The OTP is {value} to link your care context, This one time password is valid " +
                               $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}\n\n{smsServiceProperties.SmsSuffix}", */
-    Action.LINK_PATIENT_CARECONTEXT => $"Your OTP is {value} - Team MiraHospital by IPLit",
+                Action.LINK_PATIENT_CARECONTEXT => $"The OTP is {value} to link your care context.\n\nMessage sent by {clinicName} runs on Bahmni by IPLit",
                 Action.RECOVER_PASSWORD => $"The OTP is {value} to recover password, This one time password is valid " +
                                                    $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}",
                 Action.FORGOT_PIN => $"The OTP is {value} to set a new consent pin, this one time password is valid " +

@@ -24,7 +24,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
         private readonly Mock<ISmsClient> smsClient;
         private readonly OtpProperties otpProperties = new OtpProperties(5);
         private readonly SmsServiceProperties smsServiceProperties = new SmsServiceProperties(String.Empty,
-            String.Empty, String.Empty, String.Empty, String.Empty, 0, String.Empty);
+            String.Empty, String.Empty, String.Empty, String.Empty, 0, String.Empty, String.Empty);
         public OtpControllerTest()
         {
             otpRepository = new Mock<IOtpRepository>();
@@ -51,7 +51,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
                                                       smsClient.Object,
                                                       new OtpProperties(5),
                                                       smsServiceProperties)
-                .GenerateMessage(otpRequest.GenerationDetail, otp);
+                .GenerateMessage(otpRequest.GenerationDetail, otp, String.Empty);
             otpGenerator.Setup(e => e.GenerateOtp()).Returns(otp);
             smsClient.Setup(e => e.Send(phoneNumber, generateMessage, otpRequest.GenerationDetail.GetTemplateID())).ReturnsAsync(expectedResult);
             otpRepository.Setup(e => e.Save(otp, sessionId)).ReturnsAsync(expectedResult);
@@ -83,7 +83,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
                     smsClient.Object,
                     new OtpProperties(5),
                     smsServiceProperties)
-                .GenerateMessage(otpRequest.GenerationDetail, otp);
+                .GenerateMessage(otpRequest.GenerationDetail, otp, String.Empty);
             var expectedResult = new Response(ResponseType.InternalServerError, "OtpGeneration Saving failed");
             otpGenerator.Setup(e => e.GenerateOtp()).Returns(otp);
             smsClient.Setup(e => e.Send(phoneNumber, generateMessage, otpRequest.GenerationDetail.GetTemplateID())).ReturnsAsync(expectedResult);

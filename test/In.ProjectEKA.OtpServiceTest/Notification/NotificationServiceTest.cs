@@ -22,7 +22,7 @@ namespace In.ProjectEKA.OtpServiceTest.Notification
             });
 
         private readonly SmsServiceProperties smsServiceProperties = new SmsServiceProperties(String.Empty,
-            String.Empty, String.Empty, String.Empty, String.Empty, 0, String.Empty); 
+            String.Empty, String.Empty, String.Empty, String.Empty, 0, String.Empty, String.Empty); 
         private readonly NotificationService notificationService;
 
         public NotificationServiceTest()
