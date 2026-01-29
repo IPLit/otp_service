@@ -1,11 +1,13 @@
 namespace In.ProjectEKA.OtpService.Otp
 {
-	using System;
-	using System.Threading.Tasks;
-	using Clients;
-	using Common;
+    using System;
 
-	public class OtpSender : IOtpSender
+    using System.Text;
+    using System.Threading.Tasks;
+    using Clients;
+    using Common;
+
+    public class OtpSender : IOtpSender
     {
         private readonly IOtpRepository otpRepository;
         private readonly IOtpGenerator otpGenerator;
@@ -26,8 +28,9 @@ namespace In.ProjectEKA.OtpService.Otp
         {
             var otp = otpGenerator.GenerateOtp();
             var generateMessage = GenerateMessage(otpGenerationRequest.GenerationDetail, otp, smsServiceProperties.ClinicName);
-            
-            var sendOtp = await smsClient.Send(otpGenerationRequest.Communication.Value, generateMessage, otpGenerationRequest.GenerationDetail.GetTemplateID());
+            var encodedMessage = Encoding.UTF8.GetBytes(generateMessage);
+
+            var sendOtp = await smsClient.Send(otpGenerationRequest.Communication.Value, Convert.ToString(encodedMessage), otpGenerationRequest.GenerationDetail.GetTemplateID());
             if (sendOtp.ResponseType == ResponseType.Success)
             {
                 return await otpRepository.Save(otp, otpGenerationRequest.SessionId);
