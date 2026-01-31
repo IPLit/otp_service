@@ -44,7 +44,6 @@ namespace In.ProjectEKA.OtpService.Clients
             try
             {
                 var uriBuilder = new UriBuilder(smsServiceProperties.SmsApi);
-                // uriBuilder.Port = -1;
                 var query = HttpUtility.ParseQueryString(uriBuilder.Query);
                 query["username"] = smsServiceProperties.ClientId;
                 query["password"] = smsServiceProperties.ClientSecret;

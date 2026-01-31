@@ -28,9 +28,9 @@ namespace In.ProjectEKA.OtpService.Otp
         {
             var otp = otpGenerator.GenerateOtp();
             var generateMessage = GenerateMessage(otpGenerationRequest.GenerationDetail, otp, smsServiceProperties.ClinicName);
-            var encodedMessage = Encoding.UTF8.GetBytes(generateMessage);
+            var encodedMessage = System.Net.WebUtility.UrlEncode(generateMessage);
 
-            var sendOtp = await smsClient.Send(otpGenerationRequest.Communication.Value, Convert.ToString(encodedMessage), otpGenerationRequest.GenerationDetail.GetTemplateID());
+            var sendOtp = await smsClient.Send(otpGenerationRequest.Communication.Value, encodedMessage, otpGenerationRequest.GenerationDetail.GetTemplateID());
             if (sendOtp.ResponseType == ResponseType.Success)
             {
                 return await otpRepository.Save(otp, otpGenerationRequest.SessionId);
