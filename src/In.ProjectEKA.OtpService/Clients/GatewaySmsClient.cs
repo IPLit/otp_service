@@ -20,7 +20,7 @@ namespace In.ProjectEKA.OtpService.Clients
 	using Optional;
 	using Otp;
 
-	public class GatewaySmsClient : ISmsClient
+    public class GatewaySmsClient : ISmsClient
     {
         private readonly SmsServiceProperties smsServiceProperties;
         private readonly HttpClient client;
@@ -43,6 +43,8 @@ namespace In.ProjectEKA.OtpService.Clients
 
             try
             {
+                message = HttpUtility.HtmlDecode(message);
+                Log.Information("Html Decoded Message: "+message);
                 var uriBuilder = new UriBuilder(smsServiceProperties.SmsApi);
                 var query = HttpUtility.ParseQueryString(uriBuilder.Query);
                 query["username"] = smsServiceProperties.ClientId;
@@ -52,6 +54,7 @@ namespace In.ProjectEKA.OtpService.Clients
                 query["tempid"] = templateId;
                 query["source"] = smsServiceProperties.Signature;
                 query["entityid"] = smsServiceProperties.EntityId;
+                query["tmid"] = HttpUtility.HtmlDecode(smsServiceProperties.TmId);
                 query["type"] = "0";
                 query["dlr"] = "1";
 				Log.Error("smsQuery: "+query.ToString());
@@ -59,7 +62,7 @@ namespace In.ProjectEKA.OtpService.Clients
                 uriBuilder.Query = query.ToString();
 
                 var request = new HttpRequestMessage(HttpMethod.Get, uriBuilder.ToString());
-
+                Log.Information("Sending SMS with message: "+request.ToString());
                 var response = await client
                     .SendAsync(request)
                     .ConfigureAwait(false);

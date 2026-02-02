@@ -20,7 +20,8 @@ namespace In.ProjectEKA.OtpService.Otp
 
         public IOtpSender ServiceFor(string mobileNumber)
         {
-            if (mobileNumber != null && whitelistedNumbers.Any(number => number.Contains(mobileNumber)))
+            if (mobileNumber != null && whitelistedNumbers!=null && whitelistedNumbers.Count() > 0 
+                && whitelistedNumbers.Any(number => number.Contains(mobileNumber)))
             {
                 return fakeOtpSender;
             }

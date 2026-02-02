@@ -13,10 +13,11 @@ namespace In.ProjectEKA.OtpService.Otp
         public string SmsApi { get; }
         public string Signature { get; }
         public string EntityId { get; }
+        public string TmId { get; }
         public string SmsSuffix { get; }
         public int AccessTokenTTL { get; }
 
-        public SmsServiceProperties(string clientId, string clientSecret, string smsApi, string signature, string entityId, int accessTokenTtl, string smsSuffix, string clinicName)
+        public SmsServiceProperties(string clientId, string clientSecret, string smsApi, string signature, string entityId, int accessTokenTtl, string smsSuffix, string clinicName, string tmId)
         {
             ClientId = GetDecodedString(clientId);
             ClientSecret = GetDecodedString(clientSecret);
@@ -26,6 +27,7 @@ namespace In.ProjectEKA.OtpService.Otp
             SmsSuffix = GetDecodedString(smsSuffix);
             AccessTokenTTL = accessTokenTtl;
             ClinicName = clinicName;
+            TmId = GetDecodedString(tmId);
         }
 
         public static string GetDecodedString(string value)
