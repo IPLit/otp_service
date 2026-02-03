@@ -19,7 +19,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
         private readonly Mock<ISmsClient> otpWebHandler = new Mock<ISmsClient>();
         private readonly OtpProperties otpProperties = new OtpProperties(5);
         private readonly SmsServiceProperties smsServiceProperties = new SmsServiceProperties(String.Empty,
-            String.Empty, String.Empty, String.Empty, String.Empty, 0, String.Empty, String.Empty);
+            String.Empty, String.Empty, String.Empty, String.Empty, 0, String.Empty, String.Empty, String.Empty);
         public OtpSenderTest()
         {
             otpSender = new OtpSender(otpRepository.Object, otpGenerator.Object, otpWebHandler.Object, otpProperties, smsServiceProperties);
