@@ -6,6 +6,8 @@ namespace In.ProjectEKA.OtpService.Otp
 	using Common.Logger;
 	using Microsoft.EntityFrameworkCore;
 	using Model;
+    using System.Linq;
+    using In.ProjectEKA.OtpService.Otp.Model;
 	using Optional;
 
 	public class OtpRepository : IOtpRepository
