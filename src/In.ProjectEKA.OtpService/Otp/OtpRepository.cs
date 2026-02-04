@@ -38,9 +38,11 @@ namespace In.ProjectEKA.OtpService.Otp
         {
             try
             {
-                var otpRequest = await otpContext.OtpRequests.FirstAsync(o =>
-                    o.SessionId == sessionId);
-                return Option.Some(otpRequest);
+                var otpRequest = await otpContext.OtpRequests
+                    .Where(o => o.SessionId == sessionId)
+                    .OrderByDescending(o => o.RequestedAt)
+                    .FirstOrDefaultAsync();
+                return otpRequest != null ? Option.Some(otpRequest) : Option.None<OtpRequest>();
             }
             catch (Exception exception)
             {
