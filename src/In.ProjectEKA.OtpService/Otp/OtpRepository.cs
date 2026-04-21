@@ -6,8 +6,7 @@ namespace In.ProjectEKA.OtpService.Otp
 	using Common.Logger;
 	using Microsoft.EntityFrameworkCore;
 	using Model;
-    using System.Linq;
-    using In.ProjectEKA.OtpService.Otp.Model;
+	using System.Linq;
 	using Optional;
 
 	public class OtpRepository : IOtpRepository
@@ -40,10 +39,13 @@ namespace In.ProjectEKA.OtpService.Otp
         {
             try
             {
-                var otpRequest = await otpContext.OtpRequests
+                var matchingOtpRequests = await otpContext.OtpRequests
                     .Where(o => o.SessionId == sessionId)
                     .OrderByDescending(o => o.RequestedAt)
-                    .FirstOrDefaultAsync();
+                    .Take(1)
+                    .ToListAsync();
+
+                var otpRequest = matchingOtpRequests != null && matchingOtpRequests.Any() ? matchingOtpRequests.FirstOrDefault() : null;
                 return otpRequest != null ? Option.Some(otpRequest) : Option.None<OtpRequest>();
             }
             catch (Exception exception)
